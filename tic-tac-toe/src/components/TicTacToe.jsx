@@ -13,7 +13,7 @@ const TicTacToe = () => {
     setBoard(newBoard);
     setXIsNext(!xIsNext); // Switch player
 
-    // Check if it's a draw after every move
+    // Checks to see if final result is a draw
     if (!calculateWinner(newBoard) && newBoard.every(cell => cell !== null)) {
       setHistory([...history, { board: newBoard, winner: "Draw" }]); // Record the draw result
       setBoard(Array(9).fill(null)); // Reset board for a new game
