@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 const TicTacToe = () => {
-  const [board, setBoard] = useState(Array(9).fill(null));  // Board state to track the game state
-  const [xIsNext, setXIsNext] = useState(true);  // Track whose turn it is
+  const [board, setBoard] = useState(Array(9).fill(null));  // Track current board
+  const [xIsNext, setXIsNext] = useState(true);  // Track current player's turn
+  const [history, setHistory] = useState([]);  // Store past game results
 
   // Handle clicking a square on the board
   const handleClick = (index) => {
@@ -23,14 +24,21 @@ const TicTacToe = () => {
     for (let line of lines) {
       const [a, b, c] = line;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a];
+        return board[a]; // Return winner ("X" or "O")
       }
     }
     return null;
   };
 
+  // Game status: Display winner or whose turn it is
   const winner = calculateWinner(board);
   const status = winner ? `${winner} wins!` : `Next player: ${xIsNext ? "X" : "O"}`;
+
+  // Handle new game after one ends
+  const handleNewGame = () => {
+    setHistory([...history, { board, winner: winner || "Draw" }]); // Store the current game result
+    setBoard(Array(9).fill(null));  // Reset the board
+  };
 
   return (
     <div className="game">
@@ -47,10 +55,26 @@ const TicTacToe = () => {
         ))}
       </div>
       <p>{status}</p>
-      {winner && <button onClick={() => setBoard(Array(9).fill(null))}>Start New Game</button>}
+      {winner && <button onClick={handleNewGame}>Start New Game</button>}
+
+      {/* Display Past Games */}
+      <div className="history">
+        <h2>Past Games</h2>
+        {history.map((game, index) => (
+          <div key={index} className="game-result">
+            <h3>Game {index + 1}: {game.winner === "Draw" ? "Draw" : `${game.winner} won`}</h3>
+            <div className="board">
+              {game.board.map((cell, i) => (
+                <div key={i} className="cell">
+                  {cell}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default TicTacToe;
-

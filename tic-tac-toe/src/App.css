@@ -6,6 +6,11 @@ body {
 .game {
   display: inline-block;
   margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -27,6 +32,9 @@ body {
   background-color: lightgray;
   border: 1px solid black;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {
@@ -34,4 +42,24 @@ button {
   font-size: 1rem;
   margin-top: 10px;
   cursor: pointer;
+}
+
+/* Styling for history section */
+.history {
+  margin-top: 30px;
+}
+
+.game-result {
+  margin-bottom: 20px;
+}
+
+.game-result h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.game-result .board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 5px;
 }
